@@ -98,18 +98,60 @@ const icons = [
     },
 ];
 
-icons.forEach((element) => {
-    const {name, prefix, type, family} = element;
-    const elementHtml = 
-    `<div>
-        <i class="icon-box ${family} ${prefix}${name}"></i>
-        <div class="icon-name">${name}</div>
-    </div>
-    `
-    document.getElementById('icons').innerHTML += elementHtml;
-    console.log(element);
-});
+let animalIcon = [];
+let vegetableIcon = [];
+let userIcon = [];
 
+// icons.forEach((element) => {
+//     const {name, prefix, type, family} = element;
+//     let elementHtml = 
+//     `
+//     <div class="icon-box ${family} ${prefix}${name}">
+//     <div class="icon-name" style="font-size:20px">${name}</div>
+//     </div>
+//     `
+//     document.getElementById('icons').innerHTML += elementHtml;
+//     console.log(element);
+// });
 
 // Milestone 2 Coloriamo le icone per tipo
+
+let animalIconColor = '#FF4C4C';
+let vegetableIconColor = '#66B266';
+let userIconColor = '#FFA500';
+
+const tipoIcone = icons.filter((element) => {
+    const {name, prefix, type, family} = element;
+    if (element.type == 'animal'){
+        let elementHtml =
+        `
+        <div class="icon-box ${family} ${prefix}${name}" style="color:${animalIconColor}">
+        <div class="icon-name" style="font-size:20px">${name}</div>
+        </div>
+        `
+        document.getElementById('icons').innerHTML += elementHtml;
+        animalIcon.push(element)
+    } else if (element.type == 'vegetable'){
+        let elementHtml =
+        `
+        <div class="icon-box ${family} ${prefix}${name}" style="color:${vegetableIconColor}">
+        <div class="icon-name" style="font-size:20px">${name}</div>
+        </div>
+        `
+        document.getElementById('icons').innerHTML += elementHtml;
+       vegetableIcon.push(element)
+    } else {
+        let elementHtml =
+        `
+        <div class="icon-box ${family} ${prefix}${name}" style="color:${userIconColor}">
+        <div class="icon-name" style="font-size:20px">${name}</div>
+        </div>
+        `
+        document.getElementById('icons').innerHTML += elementHtml;
+        userIcon.push(element)
+    }console.log(element);
+});
+console.log('Icone animali:',animalIcon);
+console.log('Icone verdure:',vegetableIcon);
+console.log('Icone users:',userIcon);
 // Milestone 3 Creiamo una select con i tipi di icone e usiamola per filtrare le icone

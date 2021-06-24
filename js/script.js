@@ -98,60 +98,40 @@ const icons = [
     },
 ];
 
-let animalIcon = [];
-let vegetableIcon = [];
-let userIcon = [];
-
-// icons.forEach((element) => {
-//     const {name, prefix, type, family} = element;
-//     let elementHtml = 
-//     `
-//     <div class="icon-box ${family} ${prefix}${name}">
-//     <div class="icon-name" style="font-size:20px">${name}</div>
-//     </div>
-//     `
-//     document.getElementById('icons').innerHTML += elementHtml;
-//     console.log(element);
-// });
-
 // Milestone 2 Coloriamo le icone per tipo
-
-let animalIconColor = '#FF4C4C';
-let vegetableIconColor = '#66B266';
-let userIconColor = '#FFA500';
-
-const tipoIcone = icons.filter((element) => {
-    const {name, prefix, type, family} = element;
+const tipoIcone = icons.map((element) => {
     if (element.type == 'animal'){
-        let elementHtml =
-        `
-        <div class="icon-box ${family} ${prefix}${name}" style="color:${animalIconColor}">
-        <div class="icon-name" style="font-size:20px">${name}</div>
-        </div>
-        `
-        document.getElementById('icons').innerHTML += elementHtml;
-        animalIcon.push(element)
+        element.iconColor = '#FF4C4C';
     } else if (element.type == 'vegetable'){
-        let elementHtml =
-        `
-        <div class="icon-box ${family} ${prefix}${name}" style="color:${vegetableIconColor}">
-        <div class="icon-name" style="font-size:20px">${name}</div>
-        </div>
-        `
-        document.getElementById('icons').innerHTML += elementHtml;
-       vegetableIcon.push(element)
+        element.iconColor = '#66B266';
     } else {
-        let elementHtml =
+        element.iconColor = '#FFA500';
+    }console.log(element);
+    return element
+});
+console.log(tipoIcone);
+
+// Milestone 3 Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+let select = document.getElementById('typeSelect');
+select.addEventListener("click", function(){
+    if( select.value == 'all' ){
+        stampaIcone(icons)
+    }else{
+        const nuovoArr = icons.filter((element) => {
+            return element.type == select.value
+        })
+        stampaIcone(nuovoArr)
+    }
+});
+function stampaIcone(icone){
+    const empty = document.getElementById('icons');
+    empty.innerHTML = '';
+    icone.forEach((element) => {
+        empty.innerHTML += 
         `
-        <div class="icon-box ${family} ${prefix}${name}" style="color:${userIconColor}">
-        <div class="icon-name" style="font-size:20px">${name}</div>
+        <div id="icon" class="icon-box ${element.family} ${element.prefix}${element.name}" style="color:${element.iconColor}">
+        <div class="icon-name" style="font-size:20px">${element.name}</div>
         </div>
         `
-        document.getElementById('icons').innerHTML += elementHtml;
-        userIcon.push(element)
-    }console.log(element);
-});
-console.log('Icone animali:',animalIcon);
-console.log('Icone verdure:',vegetableIcon);
-console.log('Icone users:',userIcon);
-// Milestone 3 Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+    })
+}
